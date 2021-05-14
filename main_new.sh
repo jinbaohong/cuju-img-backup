@@ -10,7 +10,7 @@
 # sleep 1
 # orig_image=$1
 porb=$1 # If run this script on primary, then pass p, vice versa.
-source .env
+source envi
 # image_name=Ubuntu1804-SCADA-bak-manual
 orig_image="${nfs_path}/${image_name}.qcow2"
 # porb=$2
@@ -47,9 +47,9 @@ echo $PPID > tgid_of_cp_drive
 while (( try > 0 ))
 do
 	if [ $porb = p ]; then
-		./ssh_get_identity.sh $host_p $user_p p
+		./ssh_get_identity.sh $host_p $user_p p $nfs_path $monitor_hmp_p
 	else
-		./ssh_get_identity.sh $host_b $user_b b
+		./ssh_get_identity.sh $host_b $user_b b $nfs_path $monitor_hmp_b
 	fi
 	res=$?
 	if (( res != 0 )); then # FT
@@ -76,7 +76,7 @@ do
 		trap 'echo "Cancelling cp process..."; sudo rm $image; sync; sudo ./drive_ssh_commit.sh $monitor_b $orig_image $host_b $user_b $password_b; sudo ./drive_commit.sh $monitor_p $orig_image $host_p $user_p $password_p; sudo umount ./imgmnt; sudo qemu-nbd --disconnect /dev/nbd2; sudo rmmod nbd; echo "Done!"; exit 1;' INT
 		echo "The copy mission is running now."
 		echo "If you want to abort the copy mission, press Ctrl+C."
-		cp $orig_image $image
+		sudo cp $orig_image $image
 		sync
 		echo "Copy finished! The new image is $image"
 
@@ -86,7 +86,7 @@ do
 		if (( res == 0 )); then
 			echo "Successful!"
 		else
-			./ssh_get_identity.sh $host_p $user_p p
+			./ssh_get_identity.sh $host_p $user_p p $nfs_path $monitor_hmp_p
 			res=$?
 			if (( res != 0 )); then
 				echo "Error: In ft_mode but can't merge image."
@@ -105,7 +105,7 @@ do
 		if (( res == 0 )); then
 			echo "Successful!"
 		else
-			./ssh_get_identity.sh $host_b $user_b b
+			./ssh_get_identity.sh $host_b $user_b b $nfs_path $monitor_hmp_b
 			res=$?
 			if (( res != 0 )); then
 				echo "Error: In ft_mode but can't merge image."
@@ -128,7 +128,7 @@ do
 		trap 'echo "Cancelling cp process..."; sudo rm $image; sync; sudo ./drive_ssh_commit.sh $monitor_b $orig_image $host_b $user_b $password_b; sudo ./drive_commit.sh $monitor_p $orig_image $host_p $user_p $password_p; sudo umount ./imgmnt; sudo qemu-nbd --disconnect /dev/nbd2; sudo rmmod nbd; echo "Done!"; exit 1;' INT
 		echo "The copy mission is running now."
 		echo "If you want to abort the copy mission, press Ctrl+C."
-		cp $orig_image $image
+		sudo cp $orig_image $image
 		sync
 		echo "Copy finished! The new image is $image"
 

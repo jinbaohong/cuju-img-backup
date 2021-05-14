@@ -4,7 +4,9 @@ set timeout 5
 set host [lindex $argv 0]
 set username [lindex $argv 1]
 set porb [lindex $argv 2]
-set password [lindex $argv 3]
+set nfs_path [lindex $argv 3]
+set monitor_hmp [lindex $argv 4]
+set password [lindex $argv 5]
 spawn ssh $username@$host -p 22
 
 # expect {
@@ -17,7 +19,8 @@ spawn ssh $username@$host -p 22
 #     "password:" {send "$password\r"}
 # }
 expect {
-	"Welcome" {send "/media/cool/get_identity.sh $porb\r"}
+	# "Welcome" {send "/media/cool/get_identity.sh $porb\r"}
+	"Welcome" {send "$nfs_path/get_identity.sh $porb $nfs_path $monitor_hmp\r"}
 }
 
 expect {

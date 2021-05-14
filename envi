@@ -1,0 +1,15 @@
+new_img_dir="/media/cool" 							# /diskbackup
+nfs_path="/media/cool"								# /mnt/nfs/cuju-img-backup
+image_name=Ubuntu1804-SCADA-bak-manual
+ip_org="192.168.77.160"
+ip_chg="192.168.77.161"
+active_file="/media/cool/whatanicesnapshot.qcow2"
+try=1
+host_p=localhost
+user_p=cujuft
+monitor_p=/home/cujuft/qmp.socket
+monitor_hmp_p=/home/cujuft/vm1.monitor
+host_b=localhost
+user_b=cujuft
+monitor_b=/home/cujuft/qmp2.socket
+monitor_hmp_b=/home/cujuft/vm1r.monitor
