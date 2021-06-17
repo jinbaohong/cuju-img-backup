@@ -9,7 +9,7 @@
 # sync
 # sleep 1
 # orig_image=$1
-porb=$1 # If run this script on primary, then pass p, vice versa.
+# porb=$1 # If run this script on primary, then pass p, vice versa.
 source envi
 # image_name=Ubuntu1804-SCADA-bak-manual
 orig_image="${nfs_path}/${image_name}.qcow2"
@@ -35,7 +35,7 @@ image="${new_img_dir}/${image_name}_bak_$(date +"%Y-%m-%d-%H-%M.qcow2")"
 # monitor_b=$(grep backup < login_info | awk '{split($0,a,":"); print a[4]}')
 
 # Check if the space is enough. If it doesn't, then exit.
-if (($(df -P . | tail -1 | awk '{print $4}') <= $(stat -c "%s" $orig_image) / 1024)); then
+if (($(df -P $new_img_dir | tail -1 | awk '{print $4}') <= $(stat -c "%s" $orig_image) / 1024)); then
 	echo "The free space of current folder is not enough."
 	exit 2
 fi

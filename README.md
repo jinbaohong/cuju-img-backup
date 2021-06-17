@@ -1,7 +1,7 @@
 # cuju-img-backup
 ### Environment setting
 img_mnt
-1. Public key exchange
+1. Public key exchange:
 	The two machines, Primary and Backup, are assumed to be capable to access each other and themself via SSH without sending password explicitly. Hence, public key exchange is required.
 	We provide an easy way to do the exchange thing.
 	1. On Primary, type ```ssh-keygen```: This command will create a public key ```id_rsa.pub``` under directory ```.ssh```.
@@ -10,11 +10,11 @@ img_mnt
 	4. On Backup, type ```ssh-keygen```: This command will create a public key ```id_rsa.pub``` under directory ```.ssh```.
 	5. On Backup, copy the content of ```.ssh/d_rsa.pub```, then paste it into file ```.ssh/authorized_keys```. This step makes Backup can login itself passwordlessly.
 	6. On Backup, copy the content of ```.ssh/d_rsa.pub```, then use ssh to login Primary and paste the copied content into file ```.ssh/authorized_keys```. This step makes Backup can login Primary passwordlessly.
-2. Create directory manually
+2. Create directory manually:
 	Our program will use some directories, and it won't create them by itself, so you have to do it a favor.
 	1. ```img_mnt```: When we are testing the new bourned image, we have to modify its IP address. In our approach, we need a mount point, which is ```img_mnt```.
 	2. ```new_img_dir```: see Setting variable 1.
-3. Setting variable
+3. Setting variable:
     All of the variables can be found in file ```envi```.
 	1. ```new_img_dir```: The new bourned image will be stored at ```new_img_dir```. It is ```/diskbackup``` by default. Note that you have to ```mkdir new_img_path``` by yourself.
 	2. ```nfs_path```: This is the absolute pathname of this project. By default it is ```/mnt/nfs/cuju-img-backup```.

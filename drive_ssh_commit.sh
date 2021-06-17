@@ -20,15 +20,20 @@ spawn ssh $username@$host -p 22
 #     "password:" {send "$password\r"}
 # }
 
-
 expect {
 	"Welcome" {send "sudo nc -U $qmp_monitor\r"}
 }
 
 expect {
+    "unix connect failed" {exit 1}
     "version" {send "{ 'execute' : 'qmp_capabilities' }\r"; exp_continue}
     "{\"return\": {}}" {send "{'execute': 'block-commit','arguments': {'device': 'drive0','job-id': 'job0','base':'$base_image'}}\r"}
 }
+
+# expect {
+#     "version" {send "{ 'execute' : 'qmp_capabilities' }\r"; exp_continue}
+#     "{\"return\": {}}" {send "{'execute': 'block-commit','arguments': {'device': 'drive0','job-id': 'job0','base':'$base_image'}}\r"}
+# }
 set timeout -1
 
 expect {

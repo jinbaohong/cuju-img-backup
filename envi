@@ -13,3 +13,4 @@ host_b=localhost
 user_b=cujuft
 monitor_b=/home/cujuft/qmp2.socket
 monitor_hmp_b=/home/cujuft/vm1r.monitor
+porb=b
