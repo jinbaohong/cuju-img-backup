@@ -46,11 +46,13 @@ echo $PPID > tgid_of_cp_drive
 
 while (( try > 0 ))
 do
-	if [ $porb = p ]; then
-		./ssh_get_identity.sh $host_p $user_p p $nfs_path $monitor_hmp_p
-	else
-		./ssh_get_identity.sh $host_b $user_b b $nfs_path $monitor_hmp_b
-	fi
+	# if [ $porb = p ]; then
+	# 	./ssh_get_identity.sh $host_p $user_p p $nfs_path $monitor_hmp_p
+	# else
+	# 	./ssh_get_identity.sh $host_b $user_b b $nfs_path $monitor_hmp_b
+	# fi
+	# ./local_get_identity.sh $nfs_path $monitor_hmp_p
+	./get_identity_2.sh $nfs_path $monitor_hmp_p
 	res=$?
 	if (( res != 0 )); then # FT
 	# Set interrupt handler, because user can Ctrl+C to cancel the block job.
