@@ -9,7 +9,7 @@ ft_started=$(sudo echo "cuju-get-ft-started" | sudo nc -w 1 -U $monitor_hmp | gr
 echo "---------From get_identity.py arg start--------"
 echo "porb="
 echo $porb
-echo"nfs_path="
+echo "nfs_path="
 echo $nfs_path
 echo "monitor_hmp="
 echo $monitor_hmp

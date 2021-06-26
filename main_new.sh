@@ -51,8 +51,19 @@ do
 	# else
 	# 	./ssh_get_identity.sh $host_b $user_b b $nfs_path $monitor_hmp_b
 	# fi
-	# ./local_get_identity.sh $nfs_path $monitor_hmp_p
-	./get_identity_2.sh $nfs_path $monitor_hmp_p
+	test -e $monitor_hmp_p
+	if (( $? != 0 )) ; then
+		test -e $monitor_hmp_b
+		if (( $? != 0 )) ; then
+			echo "Error: monitor doesn't exist."
+			exit 1
+		else
+			./get_identity_2.sh $nfs_path $monitor_hmp_b
+		fi
+	else
+		./get_identity_2.sh $nfs_path $monitor_hmp_p
+	fi
+
 	res=$?
 	if (( res != 0 )); then # FT
 	# Set interrupt handler, because user can Ctrl+C to cancel the block job.

@@ -7,7 +7,6 @@ ft_mode = str(sys.argv[1]).strip('\r')
 ft_started = str(sys.argv[2]).strip('\r')
 
 print("---------From check_identity_2.py arg start--------")
-print(porb)
 print(ft_mode)
 print(ft_started)
 print("---------From check_identity_2.py arg end----------")
